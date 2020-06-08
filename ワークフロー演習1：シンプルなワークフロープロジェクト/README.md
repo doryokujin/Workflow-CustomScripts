@@ -10,7 +10,7 @@ TDコンソール上からワークフローを作成、編集することもで
 
 まずはPoweryamlell（Macの場合はお使いのターミナル）から以下のコマンドを実行してください。td wf initコマンドはワークフロープロジェクトを新規に作成するコマンドです。なお、td wfコマンドはtd workflowコマンドの短縮形で、まったく同じ意味を持ちます。
 
-```yaml
+```sh
 $ td wf init handson_step1
 2020-03-26 16:26:22 +0900: Digdag v0.9.40
   Creating handson_step1/handson_step1.dig
@@ -20,7 +20,7 @@ Done. Type `cd handson_step1` and then `td workflow run handson_step1.dig` to ru
 
 これでワークフロープロジェクトhandson_step1が新規に作成されました。作成されたフォルダの中身を見ると、サンプルのdigファイルが1つあります。
 
-```yaml
+```sh
 $ cd handson_step1
 $ ls handson_step1.dig
 ```
@@ -29,7 +29,7 @@ $ ls handson_step1.dig
 
 試しにこのdigファイルを実行してみましょう。digdag runコマンドを実行すると以下のように出力されます。-l errorはログの量を制御するオプションなので、処理には関係ありません。
 
-```yaml
+```sh
 $ digdag run -l error handson_step1.dig
 
 2020-03-26 16:33:33 +0900: Digdag v0.9.40
@@ -50,7 +50,7 @@ finiyaml 2020-03-26T00:00:00+00:00
 
 先ほどのdigファイルを書き換えていきましょう。handson_step1.digをお使いのテキストエディタで開き、以下の内容に書き換えてください。
 
-```yaml
+```sh
 handson_step1.dig
 ```
 
@@ -71,7 +71,7 @@ _export:
 
 次にqueriesという名前のディレクトリを作り、その中にquery.sqlというファイルを作成してください。
 
-```yaml
+```sh
 queries/query.sql
 ```
 
@@ -85,7 +85,7 @@ SELECT COUNT(*) as cnt FROM www_access;
 
 記述したワークフローの文法にミスがないかどうか確認してみましょう。そのためのコマンドとしてtd wf checkコマンドが利用できます。
 
-```yaml
+```sh
 $ td wf check
 2020-04-07 18:06:39 +0900: Digdag v0.9.40
   System default timezone: Asia/Tokyo
@@ -101,14 +101,14 @@ $ td wf check
 
 文法に間違いがある場合は以下のようなエラーが表示されます。
 
-```yaml
+```sh
 error: io.digdag.core.repository.ModelValidationException: Validating workflow failed
 +handson_step1+task2 contains invalid keys: 'echo': "{"echo":"Record count: ${td.last_results.cnt}"}" (config)
 ```
 
 td wf checkコマンドがエラーなく終わったら、Treasure Workflow環境にこのプロジェクトを持っていきましょう。それにはtd wf puyamlコマンドを利用します。ターミナル上でdigファイルがあるディレクトリに行き、td wf puyamlコマンドを実行します。
 
-```yaml
+```sh
 $ td wf puyaml handson_step1
 2020-03-26 16:58:42 +0900: Digdag v0.9.40
 Creating .digdag/tmp/archive-7691553520296721209.tar.gz...
@@ -129,7 +129,7 @@ Use `td workflow workflows` to yamlow all workflows.
 
 puyamlが成功したら、Treasure Workflow上で実行してみましょう。先ほど、サンプルのワークフローをローカルで実行するときにはtd wf runコマンドを利用しましたが、Treasure Workflow上で実行させる場合にはtd wf startコマンドを利用します。
 
-```yaml
+```sh
 $ td wf start handson_step1 handson_step1 --session now
 2020-03-30 10:22:12 +0900: Digdag v0.9.40
 Started a session attempt:
