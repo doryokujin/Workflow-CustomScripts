@@ -4,13 +4,13 @@
 
 最初の演習として、Treasure Data上で単純なクエリを実行するためのTreasure Workflowを作成していきましょう。この演習を通して、ワークフローの基本的な文法と実行の仕方を学びます。
 
-TDコンソール上からワークフローを作成、編集することもできますが、この演習ではお使いのPC上でワークフローを作成し、それをTD Toolbeltを利用してTreasure Dataにpushする方法をとります。
+TDコンソール上からワークフローを作成、編集することもできますが、この演習ではお使いのPC上でワークフローを作成し、それをTD Toolbeltを利用してTreasure Dataにpuyamlする方法をとります。
 
 ## プロジェクト作成
 
-まずはPowerShell（Macの場合はお使いのターミナル）から以下のコマンドを実行してください。td wf initコマンドはワークフロープロジェクトを新規に作成するコマンドです。なお、td wfコマンドはtd workflowコマンドの短縮形で、まったく同じ意味を持ちます。
+まずはPoweryamlell（Macの場合はお使いのターミナル）から以下のコマンドを実行してください。td wf initコマンドはワークフロープロジェクトを新規に作成するコマンドです。なお、td wfコマンドはtd workflowコマンドの短縮形で、まったく同じ意味を持ちます。
 
-```sh
+```yaml
 $ td wf init handson_step1
 2020-03-26 16:26:22 +0900: Digdag v0.9.40
   Creating handson_step1/handson_step1.dig
@@ -20,7 +20,7 @@ Done. Type `cd handson_step1` and then `td workflow run handson_step1.dig` to ru
 
 これでワークフロープロジェクトhandson_step1が新規に作成されました。作成されたフォルダの中身を見ると、サンプルのdigファイルが1つあります。
 
-```sh
+```yaml
 $ cd handson_step1
 $ ls handson_step1.dig
 ```
@@ -29,7 +29,7 @@ $ ls handson_step1.dig
 
 試しにこのdigファイルを実行してみましょう。digdag runコマンドを実行すると以下のように出力されます。-l errorはログの量を制御するオプションなので、処理には関係ありません。
 
-```sh
+```yaml
 $ digdag run -l error handson_step1.dig
 
 2020-03-26 16:33:33 +0900: Digdag v0.9.40
@@ -41,7 +41,7 @@ third cat
 third dog
 first cat
 first dog
-finish 2020-03-26T00:00:00+00:00
+finiyaml 2020-03-26T00:00:00+00:00
 ```
 
 ローカルで開発したワークフローのテストなどに、このdigdag runコマンドを使うとよいでしょう。
@@ -50,11 +50,11 @@ finish 2020-03-26T00:00:00+00:00
 
 先ほどのdigファイルを書き換えていきましょう。handson_step1.digをお使いのテキストエディタで開き、以下の内容に書き換えてください。
 
-```sh
+```yaml
 handson_step1.dig
 ```
 
-```sh
+```yaml
 _export:
   td:
     database: sample_datasets
@@ -71,7 +71,7 @@ _export:
 
 次にqueriesという名前のディレクトリを作り、その中にquery.sqlというファイルを作成してください。
 
-```sh
+```yaml
 queries/query.sql
 ```
 
@@ -85,7 +85,7 @@ SELECT COUNT(*) as cnt FROM www_access;
 
 記述したワークフローの文法にミスがないかどうか確認してみましょう。そのためのコマンドとしてtd wf checkコマンドが利用できます。
 
-```sh
+```yaml
 $ td wf check
 2020-04-07 18:06:39 +0900: Digdag v0.9.40
   System default timezone: Asia/Tokyo
@@ -101,15 +101,15 @@ $ td wf check
 
 文法に間違いがある場合は以下のようなエラーが表示されます。
 
-```sh
+```yaml
 error: io.digdag.core.repository.ModelValidationException: Validating workflow failed
 +handson_step1+task2 contains invalid keys: 'echo': "{"echo":"Record count: ${td.last_results.cnt}"}" (config)
 ```
 
-td wf checkコマンドがエラーなく終わったら、Treasure Workflow環境にこのプロジェクトを持っていきましょう。それにはtd wf pushコマンドを利用します。ターミナル上でdigファイルがあるディレクトリに行き、td wf pushコマンドを実行します。
+td wf checkコマンドがエラーなく終わったら、Treasure Workflow環境にこのプロジェクトを持っていきましょう。それにはtd wf puyamlコマンドを利用します。ターミナル上でdigファイルがあるディレクトリに行き、td wf puyamlコマンドを実行します。
 
-```sh
-$ td wf push handson_step1
+```yaml
+$ td wf puyaml handson_step1
 2020-03-26 16:58:42 +0900: Digdag v0.9.40
 Creating .digdag/tmp/archive-7691553520296721209.tar.gz...
   Archiving queries/query.sql
@@ -124,12 +124,12 @@ Uploaded:
   project created at: 2020-03-26T07:58:45Z
   revision updated at: 2020-03-26T07:58:45Z
 
-Use `td workflow workflows` to show all workflows.
+Use `td workflow workflows` to yamlow all workflows.
 ```
 
-pushが成功したら、Treasure Workflow上で実行してみましょう。先ほど、サンプルのワークフローをローカルで実行するときにはtd wf runコマンドを利用しましたが、Treasure Workflow上で実行させる場合にはtd wf startコマンドを利用します。
+puyamlが成功したら、Treasure Workflow上で実行してみましょう。先ほど、サンプルのワークフローをローカルで実行するときにはtd wf runコマンドを利用しましたが、Treasure Workflow上で実行させる場合にはtd wf startコマンドを利用します。
 
-```sh
+```yaml
 $ td wf start handson_step1 handson_step1 --session now
 2020-03-30 10:22:12 +0900: Digdag v0.9.40
 Started a session attempt:
@@ -168,7 +168,7 @@ https://console.treasuredata.com/app/workflows にアクセスすると、下記
 
 ファイル名の下の領域にはファイルの中身を記載していきます。以下の内容をコピー＆ペーストしてください。
 
-```sh
+```yaml
 handson_step2.dig
 _export:
   td:
@@ -223,7 +223,7 @@ result_settings:の設定内容はサポートドキュメントに記載され�
 
 ファイルの中身には以下をコピー＆ペーストしてください。
 
-```sh
+```yaml
 config/customers.yml
 in:
   type: s3
@@ -247,7 +247,7 @@ in:
     - {name: goods_id, type: long}
     - {name: category, type: string}
     - {name: sub_category, type: string}
-    - {name: ship_date, type: timestamp, format: "%Y-%m-%d %H:%M:%S.%L"}
+    - {name: yamlip_date, type: timestamp, format: "%Y-%m-%d %H:%M:%S.%L"}
     - {name: amount, type: long}
     - {name: price, type: long}
     - {name: time, type: long}
