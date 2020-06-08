@@ -10,7 +10,7 @@ TDコンソール上からワークフローを作成、編集することもで
 
 まずはPowerShell（Macの場合はお使いのターミナル）から以下のコマンドを実行してください。td wf initコマンドはワークフロープロジェクトを新規に作成するコマンドです。なお、td wfコマンドはtd workflowコマンドの短縮形で、まったく同じ意味を持ちます。
 
-```bash
+```shell
 $ td wf init handson_step1
 2020-03-26 16:26:22 +0900: Digdag v0.9.40
   Creating handson_step1/handson_step1.dig
